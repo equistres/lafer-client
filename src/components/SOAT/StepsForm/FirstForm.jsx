@@ -28,7 +28,9 @@ function FirstForm({ next, vehicleInfo, response }) {
       setModel(response.model);
       setPlate(response.placa);
       setBrand(response.brand);
+      alert(JSON.stringify(response))
     }
+    
   }, [response]);
 
   const nextSubmit = () => {
