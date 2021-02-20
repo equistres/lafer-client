@@ -1,70 +1,71 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Row, Col, Carousel } from 'antd';
 import { connect } from 'react-redux';
 import { mainInfo } from '../../redux/actions';
 import './landing.scss';
-import CarouselSecures from "./CarouselSecures";
+import Carousel from "./Carousel/Carousel";
+import { Select } from 'antd';
+import 'antd/dist/antd.css';
 
-function Landing({ mainInfo, response }) {
+function Landing({ mainInfo }) {
+
+
   const history = useHistory();
 
-  const onFinish = (values) => {
-    mainInfo(values);
+ const [formValues, setFormValues] = useState({plate:''});
+
+  const onFinish = () => {
+    mainInfo(formValues);
     history.push("/steps-form");
   };
 
-  const contentStyle = {
-    height: '85vh',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-  };
+  const { Option } = Select;
+
+  function handleChangeDiscount(value) {
+    setFormValues({...formValues, discount:value});
+  }
+  function handleChangePlate({target}) {
+    setFormValues({...formValues, plate:target.value});
+  }
+
+  //chequeo si el estado se almacena correctamente
+  // useEffect(() => {
+  //   console.log(formValues);
+  // }, [formValues])
 
   return (
-    <div className="landing-container">
-      <Carousel dotPosition='top'>
-        <div className="carousel-item">
-          <div className="title-container">
-            <Row>
-              <Col xs={24} md={10}>
-                <p>
-                  <strong>Tan fácil </strong>
-                  que puedes asegurar tu vehículo en solo 3 pasos...
-                </p>
-                <div className="btn-container">
-                  <Button className="carousel-main-btn">Cotizar</Button>
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="carousel-item">
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div className="carousel-item">
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div className="carousel-item">
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel>
-      <div className="carousel-secures-container">
-        <CarouselSecures />
+    <>
+      <section className="mainSection__container">
+        <article className="soatForm__container">
+          <h2>Cotiza rápido y seguro aquí</h2>
+          <input type="plate" id="plate" name="plate" placeholder="Ingresa la placa" onChange={handleChangePlate}></input>
+          <Select
+            size={'large'}
+            placeholder="Selecciona tu bono regalo"
+            onChange={handleChangeDiscount}
+          >
+            <Option value="millas">Millas LifeMiles</Option>
+            <Option value="descuento">Descuento de hasta $ 77.000</Option>
+          </Select>
+          <button className="soatForm__button" onClick={onFinish} value={formValues.plate.toUpperCase()}>
+            Cotiza SOAT gratis
+          </button>
+          <span className="soatForm__legales">
+            Al continuar aceptas nuestros <a href="#">Términos y Condiciones & Política de Privacidad</a> para el tratamiento de tus datos.
+          </span>
+        </article>
+        <Carousel />
+      </section>
+      <div className="maxwidth__container">
+        <section className="aboutus__container">
+          <article>
+            <h1>¿Quiénes <strong>somos?</strong></h1>
+            <p>Somos intermediarios con más de 40 años de experiencia, líderes en mercadeo masivo de seguros y microseguros. Entregamos soluciones a la medida, excelente servicio al cliente y manejamos todos los riesgos para que tus intereses estén bien asegurados.</p>
+          </article>
+          <img src="images/Siendo-Seguros-banners/Siendo-Seguros-banner-1-desktop.png" alt="Image" />
+        </section>
       </div>
-      <Row className="us-container">
-        <Col className="us-description-col" xs={24} md={12}>
-          <h1 className="us-title">¿Qué es <span className="company-name">Tan Seguro?</span></h1>
-          <p className="us-description">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-          </p>
-        </Col>
-        <Col xs={24} md={12}>
-          <img src="https://via.placeholder.com/300x200.png/F67411/FFFFFF?text=Image+Tan+Seguro" alt="fl"/>
-        </Col>
-      </Row>
-    </div>
+    </>
   );
 }
 
