@@ -23,7 +23,7 @@ const ROUTES = [
   { path: "/abort-payment", key: "Abort payment", exact: true, component: AbortPayment, show: false, auth: false, },
   { path: "/countries", key: "Países", exact: true, component: Countries, show: false, auth: true },
   // { path: "/", key: "Inicio", exact: true, component: Landing, show: true, auth: false },
-  { path: "/soat", key: "SOAT", exact: true, component: SOAT, show: true, auth: false },
+  { path: "/", key: "SOAT", exact: true, component: Landing, show: true, auth: false },
   { path: "/", key: "Noticias", exact: true, component: Landing, show: true, auth: false },
   { path: "/profile", key: "Mi perfil", exact: true, component: Landing, show: false, auth: true },
   { path: "/secure-car", key: "Seguro para auto", exact: true, component: SecureCar, show: false, auth: false },

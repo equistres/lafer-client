@@ -7,35 +7,48 @@ import { Modal, Select } from 'antd';
 import './landing.scss';
 import 'antd/dist/antd.css';
 
-function Landing({ mainInfo, response }) {
+function Landing({ mainInfo }) {
+
+
   const history = useHistory();
 
-  const onFinish = (values) => {
-    mainInfo(values);
+ const [formValues, setFormValues] = useState({plate:''});
+
+  const onFinish = () => {
+    mainInfo(formValues);
     history.push("/steps-form");
   };
 
   const [visible, setVisible] = useState(false);
   const { Option } = Select;
-  function handleChange(value) {
-    console.log(`selected ${value}`);
+
+  function handleChangeDiscount(value) {
+    setFormValues({...formValues, discount:value});
   }
+  function handleChangePlate({target}) {
+    setFormValues({...formValues, plate:target.value});
+  }
+
+  //chequeo si el estado se almacena correctamente
+  // useEffect(() => {
+  //   console.log(formValues);
+  // }, [formValues])
 
   return (
     <>
       <section className="mainSection__container">
         <article className="soatForm__container">
           <h2>Cotiza rápido y seguro aquí</h2>
-          <input type="search" id="search" name="search" placeholder="Ingresa la placa"></input>
+          <input type="plate" id="plate" name="plate" placeholder="Ingresa la placa" onChange={handleChangePlate}></input>
           <Select
             size={'large'}
             placeholder="Selecciona tu bono regalo"
-            onChange={handleChange}
+            onChange={handleChangeDiscount}
           >
             <Option value="millas">Millas LifeMiles</Option>
             <Option value="descuento">Descuento de hasta $ 77.000</Option>
           </Select>
-          <button className="soatForm__button" onClick={()=>console.log('click button')}>
+          <button className="soatForm__button" onClick={onFinish} value={formValues.plate.toUpperCase()}>
             Cotiza SOAT gratis
           </button>
           <span className="soatForm__legales">
