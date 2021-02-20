@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 import { mainInfo } from '../../redux/actions';
-import './landing.scss';
 import Carousel from "./Carousel/Carousel";
-import { Select } from 'antd';
+import { Modal, Select } from 'antd';
+import './landing.scss';
 import 'antd/dist/antd.css';
 
 function Landing({ mainInfo, response }) {
@@ -15,6 +15,7 @@ function Landing({ mainInfo, response }) {
     history.push("/steps-form");
   };
 
+  const [visible, setVisible] = useState(false);
   const { Option } = Select;
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -38,7 +39,18 @@ function Landing({ mainInfo, response }) {
             Cotiza SOAT gratis
           </button>
           <span className="soatForm__legales">
-            Al continuar aceptas nuestros <a href="#">Términos y Condiciones & Política de Privacidad</a> para el tratamiento de tus datos.
+            Al continuar aceptas nuestros <a onClick={() => setVisible(true)}>Términos y Condiciones & Política de Privacidad</a> para el tratamiento de tus datos.
+            <Modal
+              title="Términos y condiciones"
+              centered
+              visible={visible}
+              onOk={() => setVisible(false)}
+              onCancel={() => setVisible(false)}
+              width={820}
+              okText="Volver"
+            >
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc laoreet viverra purus, sed viverra eros efficitur vel. Donec euismod luctus faucibus. Ut vel lectus lectus. Nulla a suscipit massa. Nam in sodales dolor. Nulla nulla turpis, elementum ac eleifend nec, efficitur in arcu. Phasellus sodales sapien a semper egestas. Integer lacinia nisl ante, non placerat quam elementum sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus eu sapien vel metus faucibus sollicitudin. Integer aliquet ac magna vel sagittis. Phasellus luctus mattis lacus sit amet varius. Donec pharetra id quam eu iaculis. Vivamus id blandit velit. Cras venenatis pharetra dui quis consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales a quam sed mattis. Etiam varius vel urna sed finibus. Aenean varius nibh vitae mauris rutrum suscipit quis eget diam. Nullam pellentesque cursus lorem non tincidunt. Suspendisse ultricies efficitur pretium. In eu pellentesque neque. Etiam pharetra libero nec neque pulvinar, id posuere elit interdum. Nam luctus augue lorem. Nullam tempor egestas libero eget iaculis. Phasellus eu sapien vel metus faucibus sollicitudin. Integer aliquet ac magna vel sagittis. Phasellus luctus mattis lacus sit amet varius. Donec pharetra id quam eu iaculis. Vivamus id blandit velit. Cras venenatis pharetra dui quis consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales a quam sed mattis. Etiam varius vel urna sed finibus. Aenean varius nibh vitae mauris rutrum suscipit quis eget diam. Nullam pellentesque cursus lorem non tincidunt. Suspendisse ultricies efficitur pretium. In eu pellentesque neque. Etiam pharetra libero nec neque pulvinar, id posuere elit interdum. Nam luctus augue lorem. Nullam tempor egestas libero eget iaculis.v</p>
+            </Modal>
           </span>
         </article>
         <Carousel />
