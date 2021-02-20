@@ -8,24 +8,25 @@ function* client(formValues) {
 }
 
 function* mainInfo(formValues) {
-  const { identification } = formValues.payload;
+  debugger;
+  const { plate } = formValues.payload;
   const error = [];
   const data = [];
-  yield axios.post(`https://lafersegurosapi.azurewebsites.net/api/Costumers/${identification}`, {
+  yield axios.get(`https://lafersegurosapi.azurewebsites.net/api/Soat/${plate}`, {
     "accept": "*/*",
     "Access-Control-Allow-Origin": "*",
   }).then((response) => {
     data.push(response);
   }).catch(e => {
-    localStorage.setItem('client-data-soat', '');
     error.push(e);
   });
 
   if (error.length === 0) {
-    localStorage.setItem('client-data-soat', JSON.stringify(data[0].data));
+debugger;
+    const formatted = JSON.parse(data[0].data.replace(/'/gm,"\""));
     message.success('!Datos correctos!');
     //yield call(showNotification, { type: 'success', message: 'Datos correctos' });
-    yield put({ type: "MAIN_INFO_SUCCESS", response: { ...data[0].data }, });
+    yield put({ type: "MAIN_INFO_SUCCESS", response: formatted });
   } else {
     message.info('!Por favor completa los datos!');
     yield call(showNotification, { type: 'warning', message: 'Datos incorrectos, por favor intentalo nuevamente' });
