@@ -6,9 +6,12 @@ import './landing.scss';
 import Carousel from "./Carousel/Carousel";
 import { Select } from 'antd';
 import 'antd/dist/antd.css';
+<<<<<<< HEAD
 
 function Landing({ mainInfo }) {
 
+=======
+>>>>>>> bc4ef85765b111dc15215e1afdcff29c2375563a
 
   const history = useHistory();
 
@@ -20,6 +23,7 @@ function Landing({ mainInfo }) {
   };
 
   const { Option } = Select;
+<<<<<<< HEAD
 
   function handleChangeDiscount(value) {
     setFormValues({...formValues, discount:value});
@@ -32,22 +36,39 @@ function Landing({ mainInfo }) {
   // useEffect(() => {
   //   console.log(formValues);
   // }, [formValues])
+=======
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+>>>>>>> bc4ef85765b111dc15215e1afdcff29c2375563a
 
   return (
     <>
       <section className="mainSection__container">
         <article className="soatForm__container">
           <h2>Cotiza rápido y seguro aquí</h2>
+<<<<<<< HEAD
           <input type="plate" id="plate" name="plate" placeholder="Ingresa la placa" onChange={handleChangePlate}></input>
           <Select
             size={'large'}
             placeholder="Selecciona tu bono regalo"
             onChange={handleChangeDiscount}
+=======
+          <input type="search" id="search" name="search" placeholder="Ingresa la placa"></input>
+          <Select
+            size={'large'}
+            placeholder="Selecciona tu bono regalo"
+            onChange={handleChange}
+>>>>>>> bc4ef85765b111dc15215e1afdcff29c2375563a
           >
             <Option value="millas">Millas LifeMiles</Option>
             <Option value="descuento">Descuento de hasta $ 77.000</Option>
           </Select>
+<<<<<<< HEAD
           <button className="soatForm__button" onClick={onFinish} value={formValues.plate.toUpperCase()}>
+=======
+          <button className="soatForm__button" onClick={()=>console.log('click button')}>
+>>>>>>> bc4ef85765b111dc15215e1afdcff29c2375563a
             Cotiza SOAT gratis
           </button>
           <span className="soatForm__legales">
