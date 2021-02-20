@@ -8,7 +8,6 @@ function* client(formValues) {
 }
 
 function* mainInfo(formValues) {
-  debugger;
   const { plate } = formValues.payload;
   const error = [];
   const data = [];
@@ -22,7 +21,6 @@ function* mainInfo(formValues) {
   });
 
   if (error.length === 0) {
-debugger;
     const formatted = JSON.parse(data[0].data.replace(/'/gm,"\""));
     message.success('!Datos correctos!');
     //yield call(showNotification, { type: 'success', message: 'Datos correctos' });
